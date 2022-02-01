@@ -39,4 +39,9 @@ public class Task {
         deadline = source.deadline;
         group = source.group;
     }
+
+    public Task(String description, LocalDateTime deadline) {
+        this.description = description;
+        this.deadline = deadline;
+    }
 }
