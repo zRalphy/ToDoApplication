@@ -1,0 +1,5 @@
+    spring:
+      h2.console:
+        enable: false
+      datasource:
+        url: 'jdbc:h2:mem:todo-db'
