@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProjectService {
 
-    private final TaskGroupRepository taskGroupRepository;
     private final ProjectRepository projectRepository;
+    private final TaskGroupRepository taskGroupRepository;
     private final TaskConfigurationProperties configurationProperties;
 
     public Project createProject(final Project source) {
@@ -40,7 +40,8 @@ public class ProjectService {
                                             projectStep.getDescription(),
                                             deadline.plusDays(projectStep.getDaysToDeadline())))
                                     .collect(Collectors.toSet()));
-                    return taskGroup;
+                    taskGroup.setProject(project);
+                    return taskGroupRepository.save(taskGroup);
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found."));
         return new GroupReadModel(result);
     }
