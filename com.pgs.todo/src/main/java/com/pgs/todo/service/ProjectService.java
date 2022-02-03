@@ -1,8 +1,8 @@
-package com.pgs.todo.logic;
+package com.pgs.todo.service;
 
 import com.pgs.todo.model.Project;
 import com.pgs.todo.model.Task;
-import com.pgs.todo.model.TaskConfigurationProperties;
+import com.pgs.todo.TaskConfigurationProperties;
 import com.pgs.todo.model.TaskGroup;
 import com.pgs.todo.model.projection.GroupReadModel;
 import com.pgs.todo.repository.ProjectRepository;

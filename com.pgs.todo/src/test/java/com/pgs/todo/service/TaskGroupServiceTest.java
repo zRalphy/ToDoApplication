@@ -1,4 +1,4 @@
-package com.pgs.todo.logic;
+package com.pgs.todo.service;
 
 import com.pgs.todo.model.TaskGroup;
 import com.pgs.todo.repository.TaskGroupRepository;

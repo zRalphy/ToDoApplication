@@ -1,4 +1,4 @@
-package com.pgs.todo.model;
+package com.pgs.todo;
 
 import lombok.Getter;
 import lombok.Setter;

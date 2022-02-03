@@ -1,6 +1,6 @@
 package com.pgs.todo.controller;
 
-import com.pgs.todo.model.TaskConfigurationProperties;
+import com.pgs.todo.TaskConfigurationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.web.bind.annotation.GetMapping;
