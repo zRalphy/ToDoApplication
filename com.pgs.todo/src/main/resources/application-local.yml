@@ -9,4 +9,8 @@
       jpa:
         hibernate:
           ddl-auto: validate
-      task.template.allowMultipleTasks: false
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: '*'
