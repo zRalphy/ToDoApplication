@@ -1,5 +1,6 @@
 package com.pgs.todo.service;
 
+import com.pgs.todo.model.Project;
 import com.pgs.todo.model.TaskGroup;
 import com.pgs.todo.model.projection.GroupReadModel;
 import com.pgs.todo.model.projection.GroupWriteModel;
@@ -20,7 +21,11 @@ public class TaskGroupService {
     private final TaskRepository taskRepository;
 
     public GroupReadModel createGroup(GroupWriteModel source) {
-        TaskGroup result = taskGroupRepository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = taskGroupRepository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 

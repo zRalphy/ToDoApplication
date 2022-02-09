@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class GroupReadModel {
-
+    private int id;
     private String description;
     /**
      * Deadline from the latest task in group.
