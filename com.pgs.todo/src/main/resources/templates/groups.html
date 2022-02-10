@@ -35,7 +35,7 @@
 <main>
   <!--/*@thymesVar id="message" type="java.lang.String"*/-->
   <h1 th:if="${message != null}" th:text="${message}"></h1>
-  <!--/*@thymesVar id="groups" type="java.util.List<com.pgs.todo.model.projection.GroupReadModel>"*/-->
+  <!--/*@thymesVar id="groups" type="java.util.List<com.pgs.task.model.projection.GroupReadModel>"*/-->
   <dl th:each="group : ${groups}" class="Bd P(10px)">
     <dt>
       <label>
@@ -58,7 +58,7 @@
   </dl>
   <fieldset>
     <legend>New group</legend>
-    <!--/*@thymesVar id="group" type="com.pgs.todo.model.projection.GroupWriteModel"*/-->
+    <!--/*@thymesVar id="group" type="com.pgs.task.model.projection.GroupWriteModel"*/-->
     <form action="#" method="post" th:action="@{/groups}" th:object="${group}">
       <p class="C(red)" th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
       <label>Description
