@@ -9,12 +9,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 @Table(name = "tasks")
-
 public class Task {
 
     @Id
@@ -33,13 +33,6 @@ public class Task {
     @JoinColumn(name = "task_group_id")
     private TaskGroup group;
 
-    public void updateFrom(final Task source) {
-        description = source.description;
-        done = source.done;
-        deadline = source.deadline;
-        group = source.group;
-    }
-
     public Task(String description, LocalDateTime deadline) {
         this(description, deadline, null);
     }
@@ -50,5 +43,12 @@ public class Task {
         if (group != null) {
             this.group = group;
         }
+    }
+
+    public void updateFrom(final Task source) {
+        description = source.description;
+        done = source.done;
+        deadline = source.deadline;
+        group = source.group;
     }
 }

@@ -5,6 +5,10 @@ import com.pgs.todo.model.TaskGroup;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,8 +16,14 @@ import java.util.stream.Collectors;
 @Setter
 public class GroupWriteModel {
 
+    @NotBlank(message = "Task group's description must not be empty")
     private String description;
-    private Set<GroupTaskWriteModel> tasks;
+    @Valid
+    private List<GroupTaskWriteModel> tasks = new ArrayList<>();
+
+    public GroupWriteModel() {
+        tasks.add(new GroupTaskWriteModel());
+    }
 
     public TaskGroup toGroup(final Project project) {
         TaskGroup result = new TaskGroup();
