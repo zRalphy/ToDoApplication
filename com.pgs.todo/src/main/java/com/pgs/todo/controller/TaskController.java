@@ -53,7 +53,7 @@ public class TaskController {
     @PostMapping
     ResponseEntity<Task> addTask(@RequestBody @Valid Task toAdd) {
         Task taskToSave = taskRepository.save(toAdd);
-        return ResponseEntity.created(URI.create("/" + taskToSave.getId())).body(toAdd);
+        return ResponseEntity.created(URI.create("/" + taskToSave.getId())).body(taskToSave);
     }
 
     @PutMapping("/{id}")
