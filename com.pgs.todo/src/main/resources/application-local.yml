@@ -5,7 +5,7 @@
       main:
         banner-mode: off
       datasource:
-        url: 'jdbc:h2:file:/C:/Users/rmecwaldowski/Documents/MyPrograms/ToDoApp/com.pgs.todo/src/main/resources/todo-db'
+        url: 'jdbc:h2:file:/C:/Users/rmecwaldowski/Documents/MyPrograms/ToDoApplication/com.pgs.todo/src/main/resources/todo-db'
       jpa:
         hibernate:
           ddl-auto: validate
