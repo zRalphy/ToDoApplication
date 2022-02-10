@@ -5,6 +5,7 @@ import com.pgs.todo.model.Project;
 import com.pgs.todo.model.projection.GroupReadModel;
 import com.pgs.todo.model.projection.GroupTaskWriteModel;
 import com.pgs.todo.model.projection.GroupWriteModel;
+import com.pgs.todo.model.projection.ProjectWriteModel;
 import com.pgs.todo.repository.ProjectRepository;
 import com.pgs.todo.repository.TaskGroupRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,12 @@ public class ProjectService {
     private final TaskGroupService taskGroupService;
     private final TaskConfigurationProperties configurationProperties;
 
-    public Project createProject(final Project source) {
-        return projectRepository.save(source);
+    public List<Project> readAllProject() {
+        return projectRepository.findAll();
+    }
+
+    public Project save(final ProjectWriteModel toSave) {
+        return projectRepository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(int projectId, LocalDateTime deadline) {
@@ -46,9 +51,5 @@ public class ProjectService {
                                     ).collect(Collectors.toSet()));
                     return taskGroupService.createGroup(targetGroup, project);
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found."));
-    }
-
-    public List<Project> readAllProject() {
-        return projectRepository.findAll();
     }
 }
