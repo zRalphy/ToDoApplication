@@ -4,6 +4,7 @@ import com.pgs.task.service.ProjectService;
 import com.pgs.task.model.Project;
 import com.pgs.task.model.ProjectStep;
 import com.pgs.task.model.projection.ProjectWriteModel;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/projects")
 @RequiredArgsConstructor
+@IllegalExceptionsProcessing
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -48,6 +50,7 @@ public class ProjectController {
         return "projects";
     }
 
+    @Timed(value = "project.create.group", histogram = true, percentiles = {0.5, 0.95, 0.99})
     @PostMapping("/{id}")
     String createGroup(@ModelAttribute("project") ProjectWriteModel current,
                        Model model,
