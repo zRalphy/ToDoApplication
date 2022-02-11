@@ -1,10 +1,13 @@
 package com.pgs.task.controller;
 
-import com.pgs.task.service.TaskService;
 import com.pgs.task.model.Task;
 import com.pgs.task.repository.TaskRepository;
+import com.pgs.task.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,18 +24,20 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/tasks")
 public class TaskController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
+    private final ApplicationEventPublisher applicationEventPublisher;
     private final TaskRepository taskRepository;
     private final TaskService taskService;
 
     @GetMapping(params = {"!sort", "!page", "!size"})
     CompletableFuture<ResponseEntity<List<Task>>> readAllTasks() {
-        log.warn("Exposing all the tasks!");
+        LOGGER.warn("Exposing all the tasks!");
         return taskService.findAllAsync().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping
     ResponseEntity<List<Task>> readAllTasks(Pageable page) {
-        log.info("Custom pageable");
+        LOGGER.info("Custom pageable");
         return ResponseEntity.ok(taskRepository.findAll(page).getContent());
     }
 
@@ -45,7 +50,7 @@ public class TaskController {
 
     @GetMapping("/search/done")
     ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true") boolean state) {
-    return ResponseEntity.ok(taskRepository.findByDone(state));
+        return ResponseEntity.ok(taskRepository.findByDone(state));
     }
 
     //ToDo make endpoint taskForToday
@@ -74,7 +79,9 @@ public class TaskController {
         if (!taskRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        taskRepository.findById(id).ifPresent(task -> task.setDone(!task.isDone()));
+        taskRepository.findById(id)
+                .map(Task::toggle)
+                .ifPresent(applicationEventPublisher::publishEvent);
         return ResponseEntity.noContent().build();
     }
 }
