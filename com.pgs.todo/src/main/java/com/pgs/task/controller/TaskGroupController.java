@@ -1,11 +1,11 @@
 package com.pgs.task.controller;
 
+import com.pgs.task.model.Task;
 import com.pgs.task.model.projection.GroupReadModel;
 import com.pgs.task.model.projection.GroupTaskWriteModel;
 import com.pgs.task.model.projection.GroupWriteModel;
-import com.pgs.task.service.TaskGroupService;
-import com.pgs.task.model.Task;
 import com.pgs.task.repository.TaskRepository;
+import com.pgs.task.service.TaskGroupService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class TaskGroupController {
     }
 
     @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    String addGroup(@ModelAttribute("project") @Valid GroupWriteModel current,
+    String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current,
                       BindingResult bindingResult,
                       Model model) {
         if (bindingResult.hasErrors()) {
