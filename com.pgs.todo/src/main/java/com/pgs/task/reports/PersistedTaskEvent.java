@@ -16,6 +16,7 @@ class PersistedTaskEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "task_id")
     int taskId;
     String name;
     LocalDateTime occurrence;
