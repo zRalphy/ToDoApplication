@@ -1,7 +1,5 @@
 package com.pgs.task.controller;
 
-import com.pgs.task.model.Task;
-import com.pgs.task.repository.TaskRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pgs.task.model.Task;
 import com.pgs.task.repository.TaskRepository;
