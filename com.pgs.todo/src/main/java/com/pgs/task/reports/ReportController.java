@@ -30,7 +30,7 @@ public class ReportController {
 
         public String description;
         public boolean done;
-        public  int changesCount;
+        public int changesCount;
 
         TaskWithChangesCount(final Task task, final List<PersistedTaskEvent> events){
             description = task.getDescription();

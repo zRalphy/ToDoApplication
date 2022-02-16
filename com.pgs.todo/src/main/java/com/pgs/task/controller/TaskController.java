@@ -4,7 +4,6 @@ import com.pgs.task.model.Task;
 import com.pgs.task.repository.TaskRepository;
 import com.pgs.task.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -18,7 +17,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tasks")
@@ -56,8 +54,8 @@ public class TaskController {
     //ToDo make endpoint taskForToday
 
     @PostMapping
-    ResponseEntity<Task> addTask(@RequestBody @Valid Task toAdd) {
-        Task taskToSave = taskRepository.save(toAdd);
+    ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate) {
+        Task taskToSave = taskRepository.save(toCreate);
         return ResponseEntity.created(URI.create("/" + taskToSave.getId())).body(taskToSave);
     }
 
