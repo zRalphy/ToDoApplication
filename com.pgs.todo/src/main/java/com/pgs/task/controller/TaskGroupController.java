@@ -38,15 +38,15 @@ public class TaskGroupController {
     }
 
     @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    String addGroup(@ModelAttribute("project") @Valid GroupWriteModel current,
-                      BindingResult bindingResult,
-                      Model model) {
+    String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current,
+            BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
             return "groups";
         }
         taskGroupService.createGroup(current);
         model.addAttribute("group", new GroupWriteModel());
-        model.addAttribute("group", getGroups());
+        model.addAttribute("groups", getGroups());
         model.addAttribute("message", "Added group!");
         return "groups";
     }
