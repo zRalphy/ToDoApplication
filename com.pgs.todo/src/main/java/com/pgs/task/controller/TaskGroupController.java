@@ -1,16 +1,15 @@
 package com.pgs.task.controller;
 
+import com.pgs.task.model.Task;
 import com.pgs.task.model.projection.GroupReadModel;
 import com.pgs.task.model.projection.GroupTaskWriteModel;
 import com.pgs.task.model.projection.GroupWriteModel;
-import com.pgs.task.service.TaskGroupService;
-import com.pgs.task.model.Task;
 import com.pgs.task.repository.TaskRepository;
+import com.pgs.task.service.TaskGroupService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,9 +24,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @IllegalExceptionsProcessing
 @RequestMapping("/groups")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class TaskGroupController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TaskGroupController.class);
     private final TaskRepository taskRepository;
     private final TaskGroupService taskGroupService;
 
@@ -39,8 +38,8 @@ public class TaskGroupController {
 
     @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current,
-            BindingResult bindingResult,
-            Model model) {
+                    BindingResult bindingResult,
+                    Model model) {
         if (bindingResult.hasErrors()) {
             return "groups";
         }

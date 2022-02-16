@@ -7,6 +7,7 @@ import com.pgs.task.model.projection.ProjectWriteModel;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +18,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/projects")
 @RequiredArgsConstructor
 @IllegalExceptionsProcessing
+@RequestMapping("/projects")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ProjectController {
 
     private final ProjectService projectService;
