@@ -13,8 +13,8 @@ public abstract class TaskEvent {
         return source.isDone() ? new TaskDone(source) : new TaskUnDone(source);
     }
 
-    private int taskId;
-    private Instant occurrence;
+    private final int taskId;
+    private final Instant occurrence;
 
     TaskEvent(final int taskId, Clock clock) {
         this.taskId = taskId;
