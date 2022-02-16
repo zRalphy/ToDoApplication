@@ -14,12 +14,18 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @KeycloakConfiguration
-public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
     @Bean
     KeycloakSpringBootConfigResolver keycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
     }
+
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+    }
+
     @Autowired
     void configureGlobal(AuthenticationManagerBuilder auth) {
         var authorityMapper = new SimpleAuthorityMapper();
@@ -31,20 +37,15 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
     }
 
     @Override
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.anonymous()
                 .disable();
 
+        http.csrf().disable();
+
         http.authorizeRequests()
                 .anyRequest()
                 .permitAll();
-
-
     }
 }

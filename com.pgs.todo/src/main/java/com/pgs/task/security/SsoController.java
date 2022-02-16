@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 class SsoController {
+
     @GetMapping("/logout")
     String logout(HttpServletRequest request) throws ServletException {
         request.logout();
