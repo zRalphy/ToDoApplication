@@ -1,6 +1,6 @@
 package com.pgs.task.model;
 
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,16 +16,18 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "projects")
 public class Project {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private int id;
     @NotBlank(message = "Project's description must not be empty")
     private String description;
 
     @OneToMany(mappedBy = "project")
+    @JsonIgnore
     private Set<TaskGroup> groups;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore
     private Set<ProjectStep> steps;
 }

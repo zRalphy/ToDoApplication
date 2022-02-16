@@ -1,6 +1,5 @@
 package com.pgs.task.model;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,6 @@ public class ProjectStep {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private int id;
     @NotBlank(message = "Project step's description must not be empty")
     private String description;

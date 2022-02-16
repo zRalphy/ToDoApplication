@@ -38,12 +38,13 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
+        http.anonymous()
+                .disable();
+
         http.authorizeRequests()
-                .antMatchers("/projects")
-                .hasRole("ADMIN")
-                .antMatchers("/info/*")
-                .hasRole("USER")
                 .anyRequest()
                 .permitAll();
+
+
     }
 }

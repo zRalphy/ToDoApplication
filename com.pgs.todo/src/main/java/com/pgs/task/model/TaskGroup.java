@@ -1,6 +1,9 @@
 package com.pgs.task.model;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,8 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "task_groups")
 public class TaskGroup {
@@ -24,10 +25,10 @@ public class TaskGroup {
     private boolean done;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    @JsonIgnore
     private Set<Task> tasks;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
-
 }
